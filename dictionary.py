@@ -1,13 +1,15 @@
 #import collections
+import sys
 
 passdictionary = {}
 
 try:
-  file = open("/etc/passwd")
+  myfile = open("/etc/passwd")
 except IOError:
   print "The path is not valid"
+  sys.exit()
 
-for line in file:
+for line in myfile:
   if line.startswith("#"):
     pass
   else:

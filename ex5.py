@@ -1,31 +1,34 @@
+import sys
 #from string import digits
+
+
 words_list = []
 word_dictionary = {}
 
 def get_dictionary(word_list):
   for word in word_list:
-    if word in word_dictionary.keys():
+    if word in word_dictionary:
       word_dictionary[word]=word_dictionary[word]+1
     else:
       word_dictionary[word] = 1
   return word_dictionary
 
-
-def get_max(array):
-  maxim=array[0]
-  for elem in array:
+def get_max(pairs):
+  (max_key, maxim) = pairs[0]
+  for key, elem in pairs:
     if elem>maxim:
       maxim=elem
-  return maxim
+      max_key=key
+  return max_key, maxim
 
 
 try:
-  file = open("filetostrip2.txt")
-  # file = open("filetostrip.txt")
+  myfile = open("filetostrip.txt")
 except IOError:
   print "The path is not valid. Try again..."
+  sys.exit()
 
-for line in file.read().splitlines():
+for line in myfile:
   for word in line.split(' '):
     #print word.lower().translate(None, digits)
     stripped_list = ''.join(i for i in word.lower() if i.isalpha())
@@ -34,11 +37,5 @@ for line in file.read().splitlines():
 
 print words_list
 print get_dictionary(words_list)
-for key, value in word_dictionary.items():
-    if value == get_max(word_dictionary.values()):
-        print 'The word with the most occurrences is ' + str(key) + '. It has ' + str(value) + ' occurances.'
-
-
-
-
-
+max_max = get_max(word_dictionary.items())
+print 'The word with the most occurrences is ' + str(max_max)

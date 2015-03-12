@@ -1,5 +1,6 @@
 import json
 import glob
+import sys
 
 
 def min_max_average(array):
@@ -24,8 +25,11 @@ for jsonfile in all_files:
   try:
     with open(jsonfile) as json_data:
       jsonobj = json.load(json_data)
+      print jsonobj
+      print type(jsonobj)
   except IOError:
     print "The path is not valid"
+    sys.exit()
 
   for obj in jsonobj:
     science.append(obj['science'])

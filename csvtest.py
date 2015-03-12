@@ -1,13 +1,15 @@
 import csv
+import sys
 
 passdictionary = {}
 
 try:
-  file = open("/etc/passwd")
+  myfile = open("/etc/passwd")
 except IOError:
   print "The path is not valid"
+  sys.exit()
 
-for line in file:
+for line in myfile:
   if line.startswith("#"):
     pass
   else:
@@ -16,7 +18,8 @@ for line in file:
     value = splitline[2]
     passdictionary[key]=value
 
-with open('csvfile.csv', 'w') as f:
+with open('csvfile2.csv', 'w') as f:
   o = csv.writer(f, delimiter='\t')
-  for i in passdictionary.keys():
-    o.writerow([i, passdictionary[i]])
+  for user_name, user_id in passdictionary.iteritems():
+    o.writerow([user_name, user_id])
+    #o.writerows(passdictionary.iteritems())
